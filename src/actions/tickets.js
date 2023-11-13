@@ -7,8 +7,8 @@ export async function getTickets() {
 
   const res = await fetch("http://localhost:4000/tickets", {
     next: {
-      // revalidate: 0 // disable cache, force fetch database every time
-      revalidate: 60, // 每隔 60 秒 fetch json-server
+      revalidate: 0 // disable cache, force fetch database every time
+      // revalidate: 60, // 每隔 60 秒 fetch json-server
     },
   });
 

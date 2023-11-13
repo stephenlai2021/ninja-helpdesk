@@ -8,7 +8,9 @@ export default async function TicketList() {
   return (
     <>
       {tickets.map((ticket) => (
-        <TicketCard ticket={ticket} />
+        <div key={ticket.id} className="card my-5">
+          <TicketCard ticket={ticket} />
+        </div>
       ))}
       {tickets.length === 0 && (
         <p className="text-center">There are no open tickets, yay!</p>
