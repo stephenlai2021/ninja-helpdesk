@@ -1,13 +1,17 @@
-import { getTickets } from "@/actions/tickets";
-import Link from "next/link";
+// import { getTickets } from "@/actions/tickets/supabase";
+// import { getTickets } from "@/actions/tickets/appwrite";
+import { getTickets } from "@/actions/tickets/json-server";
 import TicketCard from "./TicketCard";
 
 export default async function TicketList() {
   const tickets = await getTickets();
+  console.log('ticket list: ', tickets)
 
   return (
     <>
       {tickets.map((ticket) => (
+        /* appwrite */
+        // <div key={ticket.$id} className="card my-5">
         <div key={ticket.id} className="card my-5">
           <TicketCard ticket={ticket} />
         </div>
@@ -15,6 +19,9 @@ export default async function TicketList() {
       {tickets.length === 0 && (
         <p className="text-center">There are no open tickets, yay!</p>
       )}
+      {/* <pre>
+        {JSON.stringify(tickets, null, 2)}
+      </pre> */}
     </>
   );
 }

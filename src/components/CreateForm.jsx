@@ -1,5 +1,7 @@
 "use client";
 
+import { addTicket } from "@/actions/tickets/json-server";
+import { addTicketFormData } from "@/actions/tickets/json-server";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -19,43 +21,61 @@ export default function CreateForm() {
       title,
       body,
       priority,
-      user_email: "mario@netninja.dev",
+      user_email: "test123@gmail.com",
     };
 
-    const res = await fetch("http://localhost:4000/tickets", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newTicket),
-    });
-
-    if (res.status === 201) {
-      // router.refresh();
+    /* json-server */
+    const { status } = await addTicket(newTicket);
+    if (status === "ok") {
+      router.refresh();
       router.push("/tickets");
     }
+
+    /* supabase */
+    // const { data, error } = await addTicket(newTicket)
+    // if (error) console.log(error)
+    // if (data) {
+    //   console.log(data)
+    //   router.refresh();
+    //   router.push("/tickets");
+    // }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-1/2">
+    // <form onSubmit={handleSubmit} className="w-1/2">
+    <form action={addTicketFormData} className="w-1/2">
       <label>
         <span>Title:</span>
-        <input
+        {/* <input
           required
           type="text"
           onChange={(e) => setTitle(e.target.value)}
           value={title}
+        /> */}
+        <input
+          required
+          type="text"          
+          name="title"
         />
       </label>
       <label>
         <span>Body:</span>
-        <textarea
+        {/* <textarea
           required
+          type="text"
           onChange={(e) => setBody(e.target.value)}
           value={body}
+        /> */}
+        <textarea
+          required
+          type="text"
+          name="body"
         />
       </label>
       <label>
         <span>Priority:</span>
-        <select onChange={(e) => setPriority(e.target.value)} value={priority}>
+        {/* <select onChange={(e) => setPriority(e.target.value)} value={priority}> */}
+        <select name="priority">
           <option value="low">Low Priority</option>
           <option value="medium">Medium Priority</option>
           <option value="high">High Priority</option>

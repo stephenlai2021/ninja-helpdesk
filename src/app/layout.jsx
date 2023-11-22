@@ -1,8 +1,7 @@
-import { Inter } from 'next/font/google'
+import { Rubik } from 'next/font/google'
 import './globals.css'
-import Navbar from '@/components/Navbar'
 
-const inter = Inter({ subsets: ['latin'] })
+const rubik = Rubik({ subsets: ['latin'] })
 
 export const metadata = {
   title: 'Ninja Helpdesk',
@@ -12,8 +11,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <Navbar />
+      {/* suppressHydrationWarning={true} is used to suppress Extra attributes from the server: cz-shortcut-listen */}
+      <body className={rubik.className} suppressHydrationWarning={true}>
         {children}
       </body>
     </html>
