@@ -1,16 +1,15 @@
 "use server";
 
-import { Client, Databases } from "appwrite";
-import { notFound } from "next/navigation";
+import { Client, Databases, Permission, Role } from "appwrite";
+import { notFound, redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 
 /* create appwrite instance */
 const client = new Client();
+const databases = new Databases(client);
 client
   .setEndpoint("https://cloud.appwrite.io/v1")
   .setProject("6554cd8e0fc2083334b6");
-const databases = new Databases(client);
 
 export async function getTickets() {
   // const databases = new Databases(client);
@@ -40,6 +39,7 @@ export async function getTicket(id) {
     return res;
   } catch (error) {
     console.log(error);
+    notFound();
   }
   /* res = {
       title: 'Sam Altman just got fired by Open AI 😮',
@@ -55,12 +55,49 @@ export async function getTicket(id) {
   */
 }
 
-export async function deleteTicket(id) {
+export async function addTicketFormData(formData) {
+  const ticket = Object.entries(formData);
+  console.log("ticket:", ticket);
+
+  delete ticket.$ACTION_ID_03acda53bf9a11717f791aaf7589ef1207793a80;
+  console.log("filtered ticket: ", ticket);
+
   try {
-    const res = await databases.deleteDocument(
+    const res = await databases.createDocument(
       "6559c1f61971f0447dbe",
       "6559ca511dc0f0ae8d5f",
-      id
+      {
+        ...ticket,
+        user_email: "test123@gmail.com",
+      },
+      // [
+      //   Permission.read(Role.any()), 
+      //   Permission.create(Role.any()), 
+      //   Permission.update(Role.any()), 
+      //   Permission.delete(Role.any()), 
+      // ]
+    );
+    console.log("add ticket res: ", res);
+    revalidatePath("/tickets");
+    redirect("/tickets");
+  } catch (error) {
+    console.log('create ticket error: ', error)
+    throw new Error("Could not add the new ticket.");
+  }
+}
+
+export async function deleteTicket(id) {
+  try {
+    await databases.deleteDocument(
+      "6559c1f61971f0447dbe",
+      "6559ca511dc0f0ae8d5f",
+      id,
+      // [
+      //   Permission.read(Role.any()), 
+      //   Permission.create(Role.any()), 
+      //   Permission.update(Role.any()), 
+      //   Permission.delete(Role.any()), 
+      // ]
     );
     revalidatePath("/tickets");
     redirect("/tickets");
