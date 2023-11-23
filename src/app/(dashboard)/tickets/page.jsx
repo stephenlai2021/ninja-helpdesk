@@ -1,5 +1,8 @@
 import TicketList from "@/components/TicketList";
 import { Suspense } from "react";
+import Link from 'next/link'
+
+/* components */
 import Loading from "../loading";
 
 export const metadata = {
@@ -16,6 +19,9 @@ export default function Tickets() {
             <small>Currently open tickets.</small>
           </p>
         </div>
+        <Link href="/tickets/create" className="ml-auto">
+          <button className="btn-primary">New Ticket</button>
+        </Link>
       </nav>
 
       <Suspense fallback={<Loading />}>

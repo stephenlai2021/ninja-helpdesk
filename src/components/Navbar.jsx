@@ -8,6 +8,7 @@ export default function Navbar({ user }) {
     <nav>
       <Image
         src={Logo}
+        className='pl-4'
         alt='Dojo Helpdesk logo'
         width={70}
         as='image'

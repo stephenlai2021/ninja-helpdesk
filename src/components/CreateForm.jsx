@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 /* components */
-// import SubmitButton from "./SubmitButton";
+import SubmitButton from "./SubmitButton";
 
 export default function CreateForm() {
   // const router = useRouter();
@@ -86,12 +86,12 @@ export default function CreateForm() {
         </select>
       </label>
       {/* <button className="btn-primary" disabled={isLoading}> */}
-      <button className="btn-primary">
-        {/* {isLoading && <span>Adding...</span>}
-        {!isLoading && <span>Add Ticket</span>} */}
+      {/* <button className="btn-primary">
+        {isLoading && <span>Adding...</span>}
+        {!isLoading && <span>Add Ticket</span>}
         <span>Add Ticket</span>
-      </button>
-      {/* <SubmitButton /> */}
+      </button> */}
+      <SubmitButton />
     </form>
   );
 }
