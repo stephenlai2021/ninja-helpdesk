@@ -1,5 +1,5 @@
-import { getTicket } from "@/actions/tickets/supabase";
-// import { getTicket } from "@/actions/tickets/appwrite";
+// import { getTicket } from "@/actions/tickets/supabase";
+import { getTicket } from "@/actions/tickets/appwrite";
 // import { getTicket } from "@/actions/tickets/json-server";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { createServerClient } from "@supabase/ssr";
@@ -50,7 +50,10 @@ export default async function TicketDetailsPage({ params }) {
           {/* {data.session.user.email === ticket.user_email && (
             <DeleteIcon id={ticket.id} />
           )} */}
-          <DeleteButton id={ticket.id} />
+          {/* supabase && json-server */}
+          {/* <DeleteButton id={ticket.id} /> */}
+          {/* appwrite */}
+          <DeleteButton id={ticket.$id} />
         </div>
       </nav>
       
