@@ -1,45 +1,49 @@
 "use client";
 
 import { addTicket } from "@/actions/tickets/json-server";
-import { addTicketFormData } from "@/actions/tickets/json-server";
+// import { addTicketFormData } from "@/actions/tickets/json-server";
+import { addTicketFormData } from "@/actions/tickets/supabase";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+/* components */
+// import SubmitButton from "./SubmitButton";
+
 export default function CreateForm() {
-  const router = useRouter();
+  // const router = useRouter();
 
-  const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
-  const [priority, setPriority] = useState("low");
-  const [isLoading, setIsLoading] = useState(false);
+  // const [title, setTitle] = useState("");
+  // const [body, setBody] = useState("");
+  // const [priority, setPriority] = useState("low");
+  // const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setIsLoading(true);
 
-    const newTicket = {
-      title,
-      body,
-      priority,
-      user_email: "test123@gmail.com",
-    };
+  //   const newTicket = {
+  //     title,
+  //     body,
+  //     priority,
+  //     user_email: "test123@gmail.com",
+  //   };
 
-    /* json-server */
-    const { status } = await addTicket(newTicket);
-    if (status === "ok") {
-      router.refresh();
-      router.push("/tickets");
-    }
+  //   /* json-server */
+  //   const { status } = await addTicket(newTicket);
+  //   if (status === "ok") {
+  //     router.refresh();
+  //     router.push("/tickets");
+  //   }
 
-    /* supabase */
-    // const { data, error } = await addTicket(newTicket)
-    // if (error) console.log(error)
-    // if (data) {
-    //   console.log(data)
-    //   router.refresh();
-    //   router.push("/tickets");
-    // }
-  };
+  //   /* supabase */
+  //   const { data, error } = await addTicket(newTicket)
+  //   if (error) console.log(error)
+  //   if (data) {
+  //     console.log(data)
+  //     router.refresh();
+  //     router.push("/tickets");
+  //   }
+  // };
 
   return (
     // <form onSubmit={handleSubmit} className="w-1/2">
@@ -81,10 +85,13 @@ export default function CreateForm() {
           <option value="high">High Priority</option>
         </select>
       </label>
-      <button className="btn-primary" disabled={isLoading}>
-        {isLoading && <span>Adding...</span>}
-        {!isLoading && <span>Add Ticket</span>}
+      {/* <button className="btn-primary" disabled={isLoading}> */}
+      <button className="btn-primary">
+        {/* {isLoading && <span>Adding...</span>}
+        {!isLoading && <span>Add Ticket</span>} */}
+        <span>Add Ticket</span>
       </button>
+      {/* <SubmitButton /> */}
     </form>
   );
 }

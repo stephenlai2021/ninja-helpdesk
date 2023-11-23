@@ -7,8 +7,8 @@ export async function getTickets() {
 
   const res = await fetch("http://localhost:4000/tickets", {
     next: {
-      revalidate: 0
-    }
+      revalidate: 0,
+    },
   });
 
   return res.json();
@@ -31,22 +31,25 @@ export async function addTicket(ticket) {
   });
 
   if (!res.ok) {
-    console.log('cannot create ticket!')
-    return { status: 'fail' }
+    console.log("cannot create ticket!");
+    return { status: "fail" };
   }
-  
-  return { status: 'ok' }
-
+  return { status: "ok" };
 }
+
 export async function addTicketFormData(formData) {
-  const ticket = Object.fromEntries(formData)
+  const ticket = Object.fromEntries(formData);
   const res = await fetch("http://localhost:4000/tickets", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       ...ticket,
-      user_email: "test123@gmail.com"
+      user_email: "test123@gmail.com",
     }),
   });
-  redirect('/tickets')  
+  if (!res.ok) {
+    console.log('cannot create ticket!')
+    return
+  }
+  redirect("/tickets");
 }

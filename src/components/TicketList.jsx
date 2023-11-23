@@ -1,6 +1,6 @@
-// import { getTickets } from "@/actions/tickets/supabase";
+import { getTickets } from "@/actions/tickets/supabase";
 // import { getTickets } from "@/actions/tickets/appwrite";
-import { getTickets } from "@/actions/tickets/json-server";
+// import { getTickets } from "@/actions/tickets/json-server";
 import TicketCard from "./TicketCard";
 
 export default async function TicketList() {

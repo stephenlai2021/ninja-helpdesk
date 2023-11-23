@@ -1,6 +1,6 @@
-// import { getTicket } from "@/actions/tickets/supabase";
+import { getTicket } from "@/actions/tickets/supabase";
 // import { getTicket } from "@/actions/tickets/appwrite";
-import { getTicket } from "@/actions/tickets/json-server";
+// import { getTicket } from "@/actions/tickets/json-server";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { createServerClient } from "@supabase/ssr";
 import {  cookies } from 'next/headers'
