@@ -6,10 +6,7 @@ import { notFound, redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
 
-
 // const cookieStore = cookies();
-// const supabase = createServerActionClient({ cookies: () => cookieStore })
-
 // const supabase = createServerClient(
 //   process.env.NEXT_PUBLIC_SUPABASE_URL,
 //   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
@@ -28,14 +25,13 @@ import { revalidatePath } from "next/cache";
 //   }
 // );
 
+// const supabase = createServerActionClient({ cookies: () => cookieStore })
 const supabase = createServerActionClient({ cookies });
 
 export async function getTickets() {
   // await new Promise(resolve => setTimeout(resolve, 3000))
 
-  const { data, error } = await supabase
-    .from("ninja-helpdesk")
-    .select();
+  const { data, error } = await supabase.from("ninja-helpdesk").select();
 
   if (error) console.log(error.message);
   return data;
@@ -72,9 +68,9 @@ export async function getTicket(id) {
 // }
 
 export async function addTicketFormData(formData) {
-  const ticket = Object.fromEntries(formData)
-  console.log('ticket: ', ticket)
-  
+  const ticket = Object.fromEntries(formData);
+  console.log("ticket: ", ticket);
+
   /* When using formData + server actions, an item '$ACTION_ID_03acda53bf9a11717f791aaf7589ef1207793a80' will be inserted into formData, 
     we have to manually remove it from our ticket object in order to insert data successfully !!!
     Example:
@@ -85,26 +81,34 @@ export async function addTicketFormData(formData) {
       priority: 'low'
     }
   */
-  delete ticket.$ACTION_ID_03acda53bf9a11717f791aaf7589ef1207793a80
-  console.log('filtered ticket: ', ticket)
+  delete ticket.$ACTION_ID_03acda53bf9a11717f791aaf7589ef1207793a80;
+  console.log("filtered ticket: ", ticket);
 
   // const { data: { session } } = await supabase.auth.getSession()
 
-  const { data, error } = await supabase.from('ninja-helpdesk')
+  const { data, error } = await supabase
+    .from("ninja-helpdesk")
     .insert({
       ...ticket,
       // user_email: session.user.email,
       user_email: "test123@gmail.com",
     })
-    .select()
-    // .single()
+    .select();
+  // .single()
 
-  if (error) throw new Error('Could not add the new ticket.')
-  // if (error) console.log('Error: Could not add the new ticket.')
-
+  if (error) throw new Error("Could not add the new ticket.");
   if (data) {
-    console.log('ticket returned: ', data)
-    revalidatePath('/tickets')
-    redirect('/tickets')
+    console.log("ticket returned: ", data);
+    revalidatePath("/tickets");
+    redirect("/tickets");
   }
+}
+
+export async function deleteTicket(id) {
+  const { error } = await supabase.from("ninja-helpdesk").delete().eq("id", id);
+
+  if (error) throw new Error("Could not delete the ticket.");
+
+  revalidatePath("/tickets");
+  redirect("/tickets");
 }

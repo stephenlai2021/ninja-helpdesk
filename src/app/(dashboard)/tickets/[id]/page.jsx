@@ -7,6 +7,7 @@ import {  cookies } from 'next/headers'
 
 // components
 import TicketDetailsCard from "@/components/TicketDetailsCard";
+import DeleteButton from "@/components/DeleteButton";
 
 // export const dynamicParams = true;
 
@@ -45,6 +46,12 @@ export default async function TicketDetailsPage({ params }) {
     <main>
       <nav>
         <h2>Ticket Details</h2>
+        <div className="ml-auto">
+          {/* {data.session.user.email === ticket.user_email && (
+            <DeleteIcon id={ticket.id} />
+          )} */}
+          <DeleteButton id={ticket.id} />
+        </div>
       </nav>
       
       <TicketDetailsCard ticket={ticket} />
