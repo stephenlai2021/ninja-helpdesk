@@ -1,25 +1,42 @@
 "use client"
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { createBrowserClient } from '@supabase/ssr'
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+
+/* supabase */
+import { supabaseClient } from '@/config/supabase'
+
+/* firebase */
+import { createUserWithEmailAndPassword } from 'firebase/auth'
 
 // components
 import AuthForm from "@/components/AuthForm"
-
-// const cookieStore = cookies();
-// const supabase = createBrowserClient(
-//   process.env.NEXT_PUBLIC_SUPABASE_URL,
-//   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-// );
-
-const supabase = createClientComponentClient()
 
 export default function Signup() {
   const [error, setError] = useState('')
   const router = useRouter()
 
-  const handleSubmit = async (e, email, password) => {
+  const handleSubmitFirebase = async (e, email, password) => {
+    e.preventDefault();
+    setError("");
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        firebaseAuth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+      console.log("user: ", user);
+      router.refresh();
+      router.push("/verify");
+    } catch (error) {
+      console.log('error code: ', error.code)
+      console.log('error message: ', error.message)
+      setError(error.message);
+    }
+  };
+
+  const handleSubmitSupabase = async (e, email, password) => {
     e.preventDefault()
     setError('')
 
@@ -45,7 +62,7 @@ export default function Signup() {
     <main>
       <h2 className="text-center">Register</h2>
 
-      <AuthForm handleSubmit={handleSubmit} />
+      <AuthForm handleSubmit={handleSubmitFirebase} />
 
       {error && (
         <div className="error">{error}</div>

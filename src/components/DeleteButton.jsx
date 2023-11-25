@@ -1,7 +1,9 @@
 "use client"
+
 import { useTransition } from 'react'
 // import { deleteTicket } from '@/actions/tickets/supabase'
-import { deleteTicket } from '@/actions/tickets/appwrite'
+import { deleteTicket } from '@/actions/tickets/firebase'
+// import { deleteTicket } from '@/actions/tickets/appwrite'
 
 // icons & UI
 import { TiDelete } from 'react-icons/ti'
