@@ -43,10 +43,11 @@ export async function generateMetadata({ params }) {
 
 export default async function TicketDetailsPage({ params }) {
   const ticket = await getTicket(params.id);
-  console.log("ticket: ", ticket);
+  console.log("ticket details: ", ticket);
   
-  const { data: { session } } = await supabaseServer.auth.getSession();
-  console.log("user session: ", session);
+  /* supabase */
+  // const { data: { session } } = await supabaseServer.auth.getSession();
+  // console.log("user session: ", session);
 
   return (
     <main>
@@ -59,7 +60,6 @@ export default async function TicketDetailsPage({ params }) {
           )} */}
 
           {/* firebase */}
-          {/* <DeleteButton id={ticket.id} />  */}
           <DeleteButton id={params.id} /> 
 
 

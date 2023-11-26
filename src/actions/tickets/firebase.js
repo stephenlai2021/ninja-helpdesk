@@ -14,17 +14,19 @@ import {
   deleteDoc,
   serverTimestamp,
   orderBy,
+  query,
 } from "firebase/firestore";
 
 export async function getTickets() {
   let tickets = [];
+
   const snapshot = await getDocs(
-    collection(firebaseDb, "tickets"),
-    orderBy("created_at", "desc")
+    query(collection(firebaseDb, "tickets"), orderBy("created_at", "desc"))
   );
   snapshot.forEach((doc) => {
-    tickets = [...tickets, { id: doc.id, ...doc.data() }];
-    // tickets.push({ id: doc.id, ...doc.data() })
+    // tickets = [...tickets, { id: doc.id, ...doc.data() }];
+    // tickets = [{ id: doc.id, ...doc.data() }, ...tickets];
+    tickets.push({ id: doc.id, ...doc.data() })
   });
 
   console.log("tickets: ", tickets);
@@ -33,9 +35,6 @@ export async function getTickets() {
 
 export async function getTicket(id) {
   const docSnap = await getDoc(doc(firebaseDb, "tickets", id));
-  console.log('ticket id: ', docSnap.id)
-  console.log('ticket data: ', docSnap.data())
-  
   return docSnap.data();
 }
 
@@ -52,6 +51,7 @@ export async function addTicket(ticket) {
 
 export async function addTicketFormData(formData) {
   const ticket = Object.fromEntries(formData);
+
   const docRef = await addDoc(collection(firebaseDb, "tickets"), {
     ...ticket,
     user_email: "test123@gamil.com",
