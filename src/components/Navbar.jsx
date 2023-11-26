@@ -18,8 +18,8 @@ export default function Navbar({ user }) {
       <h1>Dojo Helpdesk</h1>
       <Link href="/">Dashboard</Link>
       <Link href="/tickets" className="mr-auto">Tickets</Link>
-      {user && <span>Hello, {user.email}</span>}
-      {/* <LogoutButton /> */}
+      {user && <span>Haudy, {user?.email || partner} !</span>}
+      {user && <LogoutButton />}
     </nav>
   )
 }

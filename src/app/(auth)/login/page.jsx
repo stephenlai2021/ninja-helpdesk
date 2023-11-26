@@ -13,28 +13,23 @@ import { firebaseAuth } from "@/config/firebase";
 // components
 import AuthForm from "@/components/AuthForm";
 
-// const supabase = createBrowserClient(
-//   process.env.NEXT_PUBLIC_SUPABASE_URL,
-//   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-// );
-const supabase = createClientComponentClient();
 
 export default function LoginPage() {
   const [error, setError] = useState("");
   const router = useRouter();
-
+  
   const handleSubmitFirebase = async (e, email, password) => {
     e.preventDefault();
     setError("");
-
-    try {
+    
+    try {      
       const userCredential = await signInWithEmailAndPassword(
         firebaseAuth,
         email,
         password
       );
       const user = userCredential.user;
-      console.log("user: ", user);
+      console.log("signin user: ", user);
       router.refresh();
       router.push("/");
     } catch (error) {
@@ -48,6 +43,7 @@ export default function LoginPage() {
     e.preventDefault();
     setError("");
 
+    const supabase = createClientComponentClient();
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -66,7 +62,8 @@ export default function LoginPage() {
   return (
     <main>
       <h2 className="text-center">Login</h2>
-      <AuthForm handleSubmit={handleSubmitSupabase} />
+      {/* <AuthForm handleSubmit={handleSubmitSupabase} /> */}
+      <AuthForm handleSubmit={handleSubmitFirebase} />
       {error && <div className="error">{error}</div>}
     </main>
   );

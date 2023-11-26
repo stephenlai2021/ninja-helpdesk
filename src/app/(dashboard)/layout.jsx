@@ -5,14 +5,15 @@ import { supabaseServer } from '@/config/supabase'
 import Navbar from "@/components/Navbar";
 
 export default async function DashboardLayout({ children }) {  
-  const { data } = await supabaseServer.auth.getSession();
-  console.log("dashboard layout session: ", data.session);
+  // const { data } = await supabaseServer.auth.getSession();
+  // console.log("dashboard layout session: ", data.session);
 
-  if (!data.session) redirect("/login");
+  // if (!data.session) redirect("/login");
 
   return (
     <>
-      <Navbar user={data.session.user} />
+      {/* <Navbar user={data.session.user} /> */}
+      <Navbar />
       {children}
     </>
   );

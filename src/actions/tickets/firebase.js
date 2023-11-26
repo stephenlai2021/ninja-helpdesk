@@ -25,7 +25,6 @@ export async function getTickets() {
   );
   snapshot.forEach((doc) => {
     // tickets = [...tickets, { id: doc.id, ...doc.data() }];
-    // tickets = [{ id: doc.id, ...doc.data() }, ...tickets];
     tickets.push({ id: doc.id, ...doc.data() })
   });
 
