@@ -4,7 +4,7 @@ import { getTicket } from "@/actions/tickets/firebase";
 // import { getTicket } from "@/actions/tickets/json-server";
 
 /* supabase */
-import { supabaseServer } from "@/config/supabase";
+// import { supabaseServer } from "@/config/supabase";
 
 /* firebase */
 import { firebaseDb } from "@/config/firebase";
@@ -17,6 +17,7 @@ import DeleteButton from "@/components/DeleteButton";
 export async function generateMetadata({ params }) {
   /* json-server */
   // const res = await fetch('http://localhost:4000/tickets/' + params.id)
+  // const ticket = res.json()
 
   /* appwrite */
   // const ticket = await databases.getDocument(
