@@ -11,14 +11,22 @@ export default function Navbar({ user }) {
         className='pl-4'
         alt='Dojo Helpdesk logo'
         width={70}
-        as='image'
         placeholder='blur'
         quality={100}
       />
       <h1>Dojo Helpdesk</h1>
       <Link href="/">Dashboard</Link>
       <Link href="/tickets" className="mr-auto">Tickets</Link>
-      {user && <span>Haudy, {user?.email || partner} !</span>}
+      {/* {user && <span>{user?.email}</span>} */}
+      <Image 
+        src={user.image}
+        className='pr-'
+        alt="user logo"
+        width={30}
+        height={30}
+        quality={100}
+      />
+      {/* {user && <span>{user?.name}</span>} */}
       {user && <LogoutButton />}
     </nav>
   )

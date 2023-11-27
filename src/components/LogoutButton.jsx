@@ -1,16 +1,22 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+
+/* supabase */
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
+/* firebase */
 import { firebaseAuth } from "@/config/firebase";
-import { signOut } from "firebase/auth";
+// import { signOut } from "firebase/auth";
+
+/* next-auth */
+import { signIn, signOut, useSession } from "next-auth/react";
 
 export default function LogoutButton() {
-  const supabase = createClientComponentClient()
   const router = useRouter()
   
   const handleLogoutSupabase = async () => {
+    const supabase = createClientComponentClient()
     const { error } = await supabase.auth.signOut();
 
     if (!error) router.push('/login');
@@ -24,5 +30,6 @@ export default function LogoutButton() {
   }
 
   // return <button onClick={handleLogoutSupabase}>Logout</button>;
-  return <button onClick={handleLogoutFirebase}>Logout</button>;
+  // return <button onClick={handleLogoutFirebase}>Logout</button>;
+  return <button className="pr-" onClick={() => signOut()}>Logout</button>;
 }

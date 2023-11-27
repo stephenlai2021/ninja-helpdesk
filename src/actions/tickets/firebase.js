@@ -3,6 +3,9 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
+/* next-auth */
+import { getServerSession } from "next-auth";
+
 /* firebase */
 import { firebaseDb } from "@/config/firebase";
 import {
@@ -50,10 +53,14 @@ export async function addTicket(ticket) {
 
 export async function addTicketFormData(formData) {
   const ticket = Object.fromEntries(formData);
+  
+  /* next-auth */
+  const session = await getServerSession();
 
   const docRef = await addDoc(collection(firebaseDb, "tickets"), {
     ...ticket,
-    user_email: "test123@gamil.com",
+    // user_email: "test123@gamil.com",
+    user_email: session?.user?.email,
     created_at: serverTimestamp(),
   });
 
