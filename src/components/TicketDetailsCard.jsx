@@ -1,11 +1,21 @@
+/* next-auth */
 import { getServerSession } from "next-auth";
+
+/* supabase */
+import createSupabaseServerClient from "@/config/supabase-server";
 
 /* components */
 import Image from "next/image";
 
 export default async function TicketDetailsCard({ ticket }) {
-  const session = await getServerSession();
-  console.log("user: ", session.user);
+  /* next-auth */
+  // const session = await getServerSession();
+  // console.log("user | next-auth: ", session.user);
+
+  /* supabase */
+  const supabase = await createSupabaseServerClient()
+  const { data: { session } } = await supabase.auth.getSession()
+  console.log("user | supabase: ", session.user);
 
   return (
     <div className="card">
@@ -15,7 +25,8 @@ export default async function TicketDetailsCard({ ticket }) {
           <small>Created by {ticket.user_email}</small>
         </div>
         <div className="ml-auto">
-          <Image
+          {/* next-auth */}
+          {/* <Image
             src={
               session?.user?.image ||
               "https://cdn-icons-png.flaticon.com/512/6596/6596121.png"
@@ -25,11 +36,27 @@ export default async function TicketDetailsCard({ ticket }) {
             height={35}
             alt="user image"
             quality={100}
+          /> */}
+
+          {/* supabase */}
+          <Image
+            src="https://cdn-icons-png.flaticon.com/512/6596/6596121.png"
+            className="rounded-full border border-sm"
+            width={35}
+            height={35}
+            alt="user image"
+            quality={100}
           />
         </div>
       </div>
       <p>{ticket.body}</p>
-      <p>{ticket.created_at.toDate().toString()}</p>
+
+      {/* firebase */}
+      {/* <p>{ticket.created_at.toDate().toString()}</p> */}
+
+      {/* supabase */}
+      <p>{ticket.created_at}</p>
+
       <div className={`pill ${ticket.priority}`}>
         {ticket.priority} priority
       </div>

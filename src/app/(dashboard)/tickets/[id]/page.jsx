@@ -1,16 +1,16 @@
-// import { getTicket } from "@/actions/tickets/supabase";
-import { getTicket } from "@/actions/tickets/firebase";
+import { getTicket } from "@/actions/tickets/supabase";
+// import { getTicket } from "@/actions/tickets/firebase";
 // import { getTicket } from "@/actions/tickets/appwrite";
 // import { getTicket } from "@/actions/tickets/json-server";
 
 /* supabase */
-// import { supabaseServer } from "@/config/supabase";
+import createSupabaseServerClient from "@/config/supabase-server";
 
 /* firebase */
 import { firebaseDb } from "@/config/firebase";
 import { doc, getDoc } from 'firebase/firestore'
 
-// components
+/* components */
 import TicketDetailsCard from "@/components/TicketDetailsCard";
 import DeleteButton from "@/components/DeleteButton";
 
@@ -27,16 +27,17 @@ export async function generateMetadata({ params }) {
   // );
 
   /* firebase */
-  const docSnap = await getDoc(doc(firebaseDb, "tickets", params.id));
-  const ticket = docSnap.data()
+  // const docSnap = await getDoc(doc(firebaseDb, "tickets", params.id));
+  // const ticket = docSnap.data()
 
   /* supabase */
-  // const { data: ticket } = await supabaseServer
-  //   .from("ninja-helpdesk")
-  //   .select()
-  //   .eq("id", params.id)
-  //   .single();
-
+  const supabase = await createSupabaseServerClient()
+  const { data: ticket } = await supabase
+  .from("ninja-helpdesk")
+  .select()
+  .eq("id", params.id)
+  .single();
+  
   return {
     title: `Dojo Helpdesk | ${ticket?.title || "Ticket not Found"}`,
   };
@@ -47,8 +48,9 @@ export default async function TicketDetailsPage({ params }) {
   console.log("ticket details: ", ticket);
   
   /* supabase */
-  // const { data: { session } } = await supabaseServer.auth.getSession();
-  // console.log("user session: ", session);
+  const supabase = await createSupabaseServerClient()
+  const { data: { session } } = await supabase.auth.getSession();
+  console.log("user session: ", session);
 
   return (
     <main>
@@ -56,12 +58,12 @@ export default async function TicketDetailsPage({ params }) {
         <h2>Ticket Details</h2>
         <div className="ml-auto">
           {/* // supabase  */}
-          {/* {session?.user.email === ticket.user_email && (
+          {session?.user.email === ticket.user_email && (
             <DeleteButton id={ticket.id} /> 
-          )} */}
+          )}
 
           {/* firebase */}
-          <DeleteButton id={params.id} /> 
+          {/* <DeleteButton id={params.id} />  */}
 
 
           {/* json-server */}

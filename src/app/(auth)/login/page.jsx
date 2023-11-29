@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 
 /* supabase */
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import createSupabaseClient from "@/config/supabase-client";
 import { login } from "@/actions/auth/supabase";
 
@@ -48,7 +47,6 @@ export default function LoginPage() {
     e.preventDefault();
     setError("");
 
-    // const supabase = createClientComponentClient();
     const supabase = await createSupabaseClient();
     const { error } = await supabase.auth.signInWithPassword({
       email,
@@ -70,11 +68,11 @@ export default function LoginPage() {
       <h2 className="text-center">Login</h2>
 
       {/* supabase */}
-      {/* <AuthForm handleSubmit={handleSubmitSupabase} />
-      {error && <div className="error">{error}</div>} */}
+      <AuthForm handleSubmit={handleSubmitSupabase} />
+      {error && <div className="error">{error}</div>}
 
       {/* supabase formdata */}
-      <form action={login}>
+      {/* <form action={login}>
         <label>
           <span>Email:</span>
           <input
@@ -92,7 +90,7 @@ export default function LoginPage() {
           />
         </label>
         <button className="btn-primary">Submit</button>
-      </form>
+      </form> */}
 
       {/* firebase */}
       {/* <AuthForm handleSubmit={handleSubmitFirebase} /> */}

@@ -3,14 +3,13 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 /* supabase */
-// import { supabaseClient } from '@/config/supabase'
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import createSupabaseClient from '@/config/supabase-client'
 
 /* firebase */
 import { firebaseAuth } from '@/config/firebase'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 
-// components
+/* components */
 import AuthForm from "@/components/AuthForm"
 
 export default function Signup() {
@@ -42,7 +41,7 @@ export default function Signup() {
     e.preventDefault()
     setError('')
 
-    const supabase = createClientComponentClient()
+    const supabase = await createSupabaseClient()
     const { error } = await supabase.auth.signUp({
       email,
       password,
@@ -65,12 +64,14 @@ export default function Signup() {
     <main>
       <h2 className="text-center">Register</h2>
 
-      {/* <AuthForm handleSubmit={handleSubmitSupabase} /> */}
-      <AuthForm handleSubmit={handleSubmitFirebase} />
+      {/* supabase */}
+      <AuthForm handleSubmit={handleSubmitSupabase} />
+      {error && <div className="error">{error}</div>}
 
-      {error && (
-        <div className="error">{error}</div>
-      )}
+      {/* firebase */}
+      {/* <AuthForm handleSubmit={handleSubmitFirebase} /> */}
+      {/* {error && <div className="error">{error}</div>} */}
+
     </main>
   )
 }

@@ -2,8 +2,8 @@
 
 import { addTicket } from "@/actions/tickets/json-server";
 // import { addTicketFormData } from "@/actions/tickets/json-server";
-// import { addTicketFormData } from "@/actions/tickets/supabase";
-import { addTicketFormData } from "@/actions/tickets/firebase";
+import { addTicketFormData } from "@/actions/tickets/supabase";
+// import { addTicketFormData } from "@/actions/tickets/firebase";
 // import { addTicketFormData } from "@/actions/tickets/appwrite";
 
 /* components */

@@ -12,10 +12,8 @@ import { initAdmin } from "@/config/firebase-admin";
 
 /* components */
 import Navbar from "@/components/Navbar";
-
 // next-auth
 import SessionProvider from "@/components/SessionProvider";
-
 /* end of components */
 
 export default async function DashboardLayout({ children }) {
