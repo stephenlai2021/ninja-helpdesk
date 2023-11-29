@@ -8,11 +8,15 @@ export const authOptions = {
       clientId: process.env.GITHUB_ID ?? "",
       clientSecret: process.env.GITHUB_SECRET ?? "",
     }),
-    // GoogleProvider({
-    //   clientId: process.env.GOOGLE_CLIENT_ID,
-    //   clientSecret: process.env.GOOGLE_CLIENT_SECRET_2
-    // })
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET_2
+    }),
   ],
+  pages: {
+    login: '/(auth)/login',
+    signup: '/(auth)/signup'
+  }
 };
 
 export const handler = NextAuth(authOptions);

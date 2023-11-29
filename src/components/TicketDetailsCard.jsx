@@ -3,8 +3,8 @@ import { getServerSession } from "next-auth";
 /* components */
 import Image from "next/image";
 
-export default function TicketDetailsCard({ ticket }) {
-  const session = getServerSession();
+export default async function TicketDetailsCard({ ticket }) {
+  const session = await getServerSession();
   console.log("user: ", session.user);
 
   return (

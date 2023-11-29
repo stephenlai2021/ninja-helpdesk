@@ -26,7 +26,8 @@ export default async function DashboardLayout({ children }) {
   const session = await getServerSession();
   console.log('session: ', session)
   if (!session || !session.user) {
-    redirect("/api/auth/signin");
+    // redirect("/api/auth/signin");
+    redirect("/login");
   }
   
   return (

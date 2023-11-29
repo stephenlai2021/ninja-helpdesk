@@ -31,5 +31,5 @@ export default function LogoutButton() {
 
   // return <button onClick={handleLogoutSupabase}>Logout</button>;
   // return <button onClick={handleLogoutFirebase}>Logout</button>;
-  return <button className="pr-" onClick={() => signOut()}>Logout</button>;
+  return <button className="pr-"  onClick={() => signOut({ callbackUrl: "/login" })}>Logout</button>;
 }
