@@ -1,6 +1,6 @@
 "use server";
 
-import { supabaseSeverAction } from "@/config/supabase";
+import { supabaseSeverAction } from "@/config/supabase-server";
 import { notFound, redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 

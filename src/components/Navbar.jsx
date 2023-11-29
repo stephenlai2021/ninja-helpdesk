@@ -17,8 +17,13 @@ export default function Navbar({ user }) {
       <h1>Dojo Helpdesk</h1>
       <Link href="/">Dashboard</Link>
       <Link href="/tickets" className="mr-auto">Tickets</Link>
-      {/* {user && <span>{user?.email}</span>} */}
-      <Image 
+
+      {/* supabase */}
+      {user && <span>{user?.email}</span>}
+      {user && <LogoutButton />}
+      
+      {/* next-auth */}
+      {/* <Image 
         src={user.image}
         className='pr-'
         alt="user logo"
@@ -26,8 +31,7 @@ export default function Navbar({ user }) {
         height={30}
         quality={100}
       />
-      {/* {user && <span>{user?.name}</span>} */}
-      {user && <LogoutButton />}
+      {user && <LogoutButton />} */}
     </nav>
   )
 }

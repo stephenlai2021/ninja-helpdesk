@@ -15,7 +15,7 @@ const nextConfig = {
     //     port: "",
     //     pathname: "/512/**",
     //   },
-    ],
+    // ],
   },
 };
 

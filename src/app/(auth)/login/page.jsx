@@ -8,16 +8,19 @@ import { signIn } from "next-auth/react";
 
 /* supabase */
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import createSupabaseClient from "@/config/supabase-client";
+import { login } from "@/actions/auth/supabase";
 
 /* firebase */
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { firebaseAuth } from "@/config/firebase";
 
-// components
+/* components */
 import AuthForm from "@/components/AuthForm";
 
 export default function LoginPage() {
   const [error, setError] = useState("");
+
   const router = useRouter();
 
   const handleSubmitFirebase = async (e, email, password) => {
@@ -45,7 +48,8 @@ export default function LoginPage() {
     e.preventDefault();
     setError("");
 
-    const supabase = createClientComponentClient();
+    // const supabase = createClientComponentClient();
+    const supabase = await createSupabaseClient();
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -63,29 +67,39 @@ export default function LoginPage() {
 
   return (
     <main className="">
-      {/* <h2 className="text-center">Login</h2> */}
-      {/* <AuthForm handleSubmit={handleSubmitSupabase} /> */}
+      <h2 className="text-center">Login</h2>
+
+      {/* supabase */}
+      {/* <AuthForm handleSubmit={handleSubmitSupabase} />
+      {error && <div className="error">{error}</div>} */}
+
+      {/* supabase formdata */}
+      <form action={login}>
+        <label>
+          <span>Email:</span>
+          <input
+            type="email"
+            name="email"
+            required
+          />
+        </label>
+        <label>
+          <span>Password:</span>
+          <input
+            type="password"
+            name="password"
+            required
+          />
+        </label>
+        <button className="btn-primary">Submit</button>
+      </form>
+
+      {/* firebase */}
       {/* <AuthForm handleSubmit={handleSubmitFirebase} /> */}
       {/* {error && <div className="error">{error}</div>} */}
 
-      {/*  */}
-      {/* <button
-        className="bg-slate-600 px-4 py-2 text-white mx-auto mb-2"
-        onClick={() => signIn("github", { callbackUrl: "/" })}
-        type="button"
-      >
-        Sign In With GitHub
-      </button>
-      <button
-        className="bg-slate-600 px-4 py-2 text-white mx-auto"
-        onClick={() => signIn("google", { callbackUrl: "/" })}
-        type="button"
-      >
-        Sign In With Google
-      </button> */}
-
-      {/* Default Nextauth login buttons */}
-      <div className="my-[32px] bg-[#0d1116] py-[20px] px-[32px] flex justify-center max-w-[250px] mx-auto">
+      {/* Nextauth */}
+      {/* <div className="my-[32px] bg-[#0d1116] py-[20px] px-[32px] flex justify-center max-w-[250px] mx-auto">
         <div className="min-w-[230px] borde flex flex-col">
           <button
             className="bg-[#24292f] py-[12px] px-[]16px] mb-[10px] rounded-[10px]"
@@ -114,7 +128,7 @@ export default function LoginPage() {
             <span className="text-[18px]">Sign in with Google</span>
           </button>
         </div>
-      </div>
+      </div> */}
     </main>
   );
 }
