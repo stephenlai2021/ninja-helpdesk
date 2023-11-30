@@ -3,7 +3,14 @@ import Image from 'next/image'
 import Logo from './dojo-logo.png'
 import LogoutButton from './LogoutButton'
 
-export default function Navbar({ user }) {
+/* clerk */
+import { ClerkProvider, auth, currentUser } from "@clerk/nextjs";
+
+// export default async function Navbar({ user }) {
+export default async function Navbar() {
+  const user = await currentUser()
+  console.log('user | navbar: ', user._User)
+
   return (
     <nav>
       <Image
@@ -19,7 +26,10 @@ export default function Navbar({ user }) {
       <Link href="/tickets" className="mr-auto">Tickets</Link>
 
       {/* supabase */}
-      {user && <span>{user?.email}</span>}
+      {/* {user && <span>{user?.email}</span>}
+      {user && <LogoutButton />} */}
+
+      {/* clerk */}
       {user && <LogoutButton />}
       
       {/* next-auth */}

@@ -4,6 +4,9 @@ import { getServerSession } from "next-auth";
 /* supabase */
 import createSupabaseServerClient from "@/config/supabase-server";
 
+/* clerk */
+import { ClerkProvider, auth, currentUser } from "@clerk/nextjs";
+
 /* components */
 import Image from "next/image";
 
@@ -13,9 +16,9 @@ export default async function TicketDetailsCard({ ticket }) {
   // console.log("user | next-auth: ", session.user);
 
   /* supabase */
-  const supabase = await createSupabaseServerClient()
-  const { data: { session } } = await supabase.auth.getSession()
-  console.log("user | supabase: ", session.user);
+  // const supabase = await createSupabaseServerClient()
+  // const { data: { session } } = await supabase.auth.getSession()
+  // console.log("user | supabase: ", session.user);
 
   return (
     <div className="card">
@@ -25,6 +28,7 @@ export default async function TicketDetailsCard({ ticket }) {
           <small>Created by {ticket.user_email}</small>
         </div>
         <div className="ml-auto">
+
           {/* next-auth */}
           {/* <Image
             src={

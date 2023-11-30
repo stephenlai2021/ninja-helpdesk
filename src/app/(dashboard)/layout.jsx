@@ -2,27 +2,32 @@ import { redirect } from "next/navigation";
 
 /* next-auth */
 import { getServerSession } from "next-auth";
+import SessionProvider from "@/components/SessionProvider";
 
 /* supabase */
-// import { supabaseServer } from '@/config/supabase'
 import createSupabaseServerClient from "@/config/supabase-server";
 
 /* firebase */
 import { initAdmin } from "@/config/firebase-admin";
 
+/* clerk */
+import { ClerkProvider, auth, currentUser } from "@clerk/nextjs";
+
 /* components */
 import Navbar from "@/components/Navbar";
-// next-auth
-import SessionProvider from "@/components/SessionProvider";
-/* end of components */
 
 export default async function DashboardLayout({ children }) {
   /* supabase */
-  // const { data } = await supabaseServer.auth.getSession();
-  const supabase = await createSupabaseServerClient()
-  const { data: { session } } = await supabase.auth.getSession();
-  console.log("dashboard layout session: ", session);
-  if (!session) redirect("/login");
+  // const supabase = await createSupabaseServerClient()
+  // const { data: { session } } = await supabase.auth.getSession();
+  // console.log("dashboard layout session: ", session);
+  // if (!session) redirect("/login");
+  
+  /* clerk */
+  const user = await currentUser()
+  // console.log('user | dashboard layout: ', user._User)
+  if (!user) redirect("/sign-in");
+
 
   /* firebase */
   // await initAdmin()
@@ -44,8 +49,14 @@ export default async function DashboardLayout({ children }) {
       </SessionProvider> */}
 
       {/* supabase */}
-      <Navbar user={session.user} />
-      {children}
+      {/* <Navbar user={session.user} />
+      {children} */}
+
+      {/* clerk */}
+      {/* <ClerkProvider> */}
+        <Navbar />
+        {children}
+      {/* </ClerkProvider> */}
     </>
   );
 }

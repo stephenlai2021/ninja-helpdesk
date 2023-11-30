@@ -3,12 +3,15 @@ import { getTicket } from "@/actions/tickets/supabase";
 // import { getTicket } from "@/actions/tickets/appwrite";
 // import { getTicket } from "@/actions/tickets/json-server";
 
+/* clerk */
+import { auth, currentUser } from "@clerk/nextjs";
+
 /* supabase */
 import createSupabaseServerClient from "@/config/supabase-server";
 
 /* firebase */
 import { firebaseDb } from "@/config/firebase";
-import { doc, getDoc } from 'firebase/firestore'
+import { doc, getDoc } from "firebase/firestore";
 
 /* components */
 import TicketDetailsCard from "@/components/TicketDetailsCard";
@@ -31,13 +34,13 @@ export async function generateMetadata({ params }) {
   // const ticket = docSnap.data()
 
   /* supabase */
-  const supabase = await createSupabaseServerClient()
+  const supabase = await createSupabaseServerClient();
   const { data: ticket } = await supabase
-  .from("ninja-helpdesk")
-  .select()
-  .eq("id", params.id)
-  .single();
-  
+    .from("ninja-helpdesk")
+    .select()
+    .eq("id", params.id)
+    .single();
+
   return {
     title: `Dojo Helpdesk | ${ticket?.title || "Ticket not Found"}`,
   };
@@ -46,11 +49,21 @@ export async function generateMetadata({ params }) {
 export default async function TicketDetailsPage({ params }) {
   const ticket = await getTicket(params.id);
   console.log("ticket details: ", ticket);
-  
+
   /* supabase */
-  const supabase = await createSupabaseServerClient()
-  const { data: { session } } = await supabase.auth.getSession();
-  console.log("user session: ", session);
+  // const supabase = await createSupabaseServerClient();
+  // const {
+  //   data: { session },
+  // } = await supabase.auth.getSession();
+  // console.log("user session: ", session);
+
+  /* clerk */
+  const { userId } = auth();
+  console.log('user id: ', userId)
+  const user = await currentUser()
+  console.log('user: ', user)
+  console.log('user email: ', user.emailAddresses[0].emailAddress)
+  const userEmail = user.emailAddresses[0].emailAddress
 
   return (
     <main>
@@ -58,13 +71,13 @@ export default async function TicketDetailsPage({ params }) {
         <h2>Ticket Details</h2>
         <div className="ml-auto">
           {/* // supabase  */}
-          {session?.user.email === ticket.user_email && (
-            <DeleteButton id={ticket.id} /> 
-          )}
+          {/* {session?.user.email === ticket.user_email && <DeleteButton id={ticket.id} />} */}
+
+          {/* clerk */}
+          {userEmail === ticket.user_email && <DeleteButton id={ticket.id} />}
 
           {/* firebase */}
           {/* <DeleteButton id={params.id} />  */}
-
 
           {/* json-server */}
           {/* <DeleteButton id={ticket.id} /> */}
@@ -73,7 +86,7 @@ export default async function TicketDetailsPage({ params }) {
           {/* <DeleteButton id={ticket.$id} /> */}
         </div>
       </nav>
-      <TicketDetailsCard ticket={ticket} /> 
+      <TicketDetailsCard ticket={ticket} />
     </main>
   );
 }
