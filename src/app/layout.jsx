@@ -5,7 +5,7 @@ import { Rubik } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 
 /* next-auth */
-import SessionProvider from "@/components/SessionProvider"; 
+import SessionProvider from "@/components/SessionProvider"; // for client components 
 
 const rubik = Rubik({ subsets: ["latin"] });
 

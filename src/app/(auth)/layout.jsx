@@ -29,7 +29,7 @@ export default async function AuthLayout({ children }) {
 
   /* next-auth */
   const session = await getServerSession();
-  console.log("session: ", session);
+  console.log("user session | auth layout: ", session);
   if (session?.user) redirect("/");
 
   return (

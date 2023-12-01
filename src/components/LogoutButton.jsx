@@ -41,5 +41,5 @@ export default function LogoutButton() {
   // return <button onClick={handleLogoutFirebase}>Logout</button>;
 
   /* next-auth */
-  return <button onClick={() => signOut({ callbackUrl: "/login" })}>Logout</button>;
+  return <button className="" onClick={() => signOut({ callbackUrl: "/login" })}>Logout</button>;
 }
