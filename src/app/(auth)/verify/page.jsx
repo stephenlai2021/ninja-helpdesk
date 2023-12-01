@@ -1,3 +1,5 @@
+// After signup with Supabase, user will be redirectd to this page
+
 export default function VerifyPage() {
   return (
     <main>

@@ -4,6 +4,9 @@ import { Rubik } from "next/font/google";
 /* clerk */
 import { ClerkProvider } from "@clerk/nextjs";
 
+/* next-auth */
+import SessionProvider from "@/components/SessionProvider"; 
+
 const rubik = Rubik({ subsets: ["latin"] });
 
 export const metadata = {
@@ -13,13 +16,13 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <ClerkProvider>
+    // <ClerkProvider>
       <html lang="en">
         {/* suppressHydrationWarning={true} is used to suppress Extra attributes from the server: cz-shortcut-listen */}
         <body className={rubik.className} suppressHydrationWarning={true}>
           {children}
         </body>
       </html>
-    </ClerkProvider>
+    // </ClerkProvider>
   );
 }

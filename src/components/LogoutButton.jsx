@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import createSupabaseClient from "@/config/supabase-client";
 
 /* clerk */
-import { UserButton } from "@clerk/nextjs";
+// import { UserButton } from "@clerk/nextjs";
 
 /* firebase */
 import { firebaseAuth } from "@/config/firebase";
@@ -35,11 +35,11 @@ export default function LogoutButton() {
   // return <button onClick={handleLogoutSupabase}>Logout</button>;
 
   /* clerk */
-  return <div><UserButton afterSignOutUrl="/"/></div>
+  // return <div><UserButton afterSignOutUrl="/"/></div>
 
   /* firebase */
   // return <button onClick={handleLogoutFirebase}>Logout</button>;
 
   /* next-auth */
-  // return <button onClick={() => signOut({ callbackUrl: "/login" })}>Logout</button>;
+  return <button onClick={() => signOut({ callbackUrl: "/login" })}>Logout</button>;
 }

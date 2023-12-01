@@ -9,7 +9,7 @@ import { getServerSession } from "next-auth";
 import SessionProvider from "@/components/SessionProvider";
 
 /* clerk */
-import { ClerkProvider, auth, currentUser } from "@clerk/nextjs";
+// import { ClerkProvider, auth, currentUser } from "@clerk/nextjs";
 
 export default async function AuthLayout({ children }) {
   /* supabase */
@@ -21,50 +21,35 @@ export default async function AuthLayout({ children }) {
   // if (session) redirect("/");
 
   /* clerk */
-  const user = await currentUser();
-  console.log("user | clerk: ", user);
-  if (user) redirect("/");
+  // const user = await currentUser();
+  // console.log("user | clerk: ", user);
+  // if (user) redirect("/");
 
   /* firebase */
 
   /* next-auth */
-  // const session = await getServerSession();
-  // console.log("session: ", session);
-  // if (session?.user) {
-  //   redirect("/");
-  // }
+  const session = await getServerSession();
+  console.log("session: ", session);
+  if (session?.user) redirect("/");
 
   return (
     <>
-      {/* next-auth */}
-      {/* <SessionProvider session={session}>
-        <nav className="px-4">
-          <Link href="/">
-            <h1>Dojo Helpdesk</h1>
-          </Link>
-          <Link href="/signup">Regiser</Link>
-          <Link href="/login">Login</Link>
-        </nav>
-        {children}
-      </SessionProvider> */}
-
-      {/* supabase */}
-      {/* <nav className="px-4">
+      <nav className="px-4">
         <Link href="/">
           <h1>Dojo Helpdesk</h1>
         </Link>
         <Link href="/signup">Regiser</Link>
         <Link href="/login">Login</Link>
       </nav>
-      {children} */}
+      {children}
 
       {/* clerk */}
-      <nav className="px-4">
+      {/* <nav className="px-4">
         <Link href="/">
           <h1>Dojo Helpdesk</h1>
         </Link>
       </nav>
-      {children}
+      {children} */}
     </>
   );
 }

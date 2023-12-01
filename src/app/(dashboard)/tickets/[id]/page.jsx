@@ -4,7 +4,7 @@ import { getTicket } from "@/actions/tickets/supabase";
 // import { getTicket } from "@/actions/tickets/json-server";
 
 /* clerk */
-import { auth, currentUser } from "@clerk/nextjs";
+// import { auth, currentUser } from "@clerk/nextjs";
 
 /* supabase */
 import createSupabaseServerClient from "@/config/supabase-server";
@@ -12,6 +12,9 @@ import createSupabaseServerClient from "@/config/supabase-server";
 /* firebase */
 import { firebaseDb } from "@/config/firebase";
 import { doc, getDoc } from "firebase/firestore";
+
+/* next-auth */
+import { getServerSession } from "next-auth";
 
 /* components */
 import TicketDetailsCard from "@/components/TicketDetailsCard";
@@ -55,15 +58,17 @@ export default async function TicketDetailsPage({ params }) {
   // const {
   //   data: { session },
   // } = await supabase.auth.getSession();
-  // console.log("user session: ", session);
+  // console.log('session | ticket details: ', session?.user);
 
   /* clerk */
-  const { userId } = auth();
-  console.log('user id: ', userId)
-  const user = await currentUser()
-  console.log('user: ', user)
-  console.log('user email: ', user.emailAddresses[0].emailAddress)
-  const userEmail = user.emailAddresses[0].emailAddress
+  // const user = await currentUser()
+  // console.log('user: ', user)
+  // console.log('user email: ', user.emailAddresses[0].emailAddress)
+  // const userEmail = user.emailAddresses[0].emailAddress
+
+  /* next-auth */
+   const session = await getServerSession();
+   console.log("session | ticket details: ", session);
 
   return (
     <main>
@@ -71,10 +76,10 @@ export default async function TicketDetailsPage({ params }) {
         <h2>Ticket Details</h2>
         <div className="ml-auto">
           {/* // supabase  */}
-          {/* {session?.user.email === ticket.user_email && <DeleteButton id={ticket.id} />} */}
+          {session?.user.email === ticket.user_email && <DeleteButton id={ticket.id} />}
 
           {/* clerk */}
-          {userEmail === ticket.user_email && <DeleteButton id={ticket.id} />}
+          {/* {userEmail === ticket.user_email && <DeleteButton id={ticket.id} />} */}
 
           {/* firebase */}
           {/* <DeleteButton id={params.id} />  */}

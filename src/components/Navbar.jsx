@@ -4,12 +4,22 @@ import Logo from './dojo-logo.png'
 import LogoutButton from './LogoutButton'
 
 /* clerk */
-import { ClerkProvider, auth, currentUser } from "@clerk/nextjs";
+// import { ClerkProvider, auth, currentUser } from "@clerk/nextjs";
 
-// export default async function Navbar({ user }) {
-export default async function Navbar() {
-  const user = await currentUser()
-  console.log('user | navbar: ', user._User)
+/* next-auth */
+import { getServerSession } from "next-auth";
+
+export default async function Navbar({ user }) {
+// export default async function Navbar() {
+  /* clerk */
+  // const user = await currentUser()
+  // console.log('user | navbar: ', user._User)
+
+  /* next-auth */
+  // const session = await getServerSession();
+  // console.log("session | navbar: ", session);
+  // const user = session?.user
+  // console.log("user | navbar: ", session?.user);
 
   return (
     <nav>
@@ -30,18 +40,19 @@ export default async function Navbar() {
       {user && <LogoutButton />} */}
 
       {/* clerk */}
-      {user && <LogoutButton />}
+      {/* {user && <LogoutButton />} */}
       
       {/* next-auth */}
       {/* <Image 
-        src={user.image}
+        src={user?.image || "https://cdn-icons-png.flaticon.com/512/6596/6596121.png"}
         className='pr-'
         alt="user logo"
         width={30}
         height={30}
         quality={100}
-      />
-      {user && <LogoutButton />} */}
+        /> */}
+      {user && <span>{user?.email}</span>}
+      {user && <LogoutButton />}
     </nav>
   )
 }

@@ -68,8 +68,8 @@ export default function LoginPage() {
       <h2 className="text-center">Login</h2>
 
       {/* supabase */}
-      <AuthForm handleSubmit={handleSubmitSupabase} />
-      {error && <div className="error">{error}</div>}
+      {/* <AuthForm handleSubmit={handleSubmitSupabase} />
+      {error && <div className="error">{error}</div>} */}
 
       {/* supabase formdata */}
       {/* <form action={login}>
@@ -96,8 +96,8 @@ export default function LoginPage() {
       {/* <AuthForm handleSubmit={handleSubmitFirebase} /> */}
       {/* {error && <div className="error">{error}</div>} */}
 
-      {/* Nextauth */}
-      {/* <div className="my-[32px] bg-[#0d1116] py-[20px] px-[32px] flex justify-center max-w-[250px] mx-auto">
+      {/* next-auth */}
+      <div className="my-[32px] bg-[#0d1116] py-[20px] px-[32px] flex justify-center max-w-[250px] mx-auto">
         <div className="min-w-[230px] borde flex flex-col">
           <button
             className="bg-[#24292f] py-[12px] px-[]16px] mb-[10px] rounded-[10px]"
@@ -126,7 +126,7 @@ export default function LoginPage() {
             <span className="text-[18px]">Sign in with Google</span>
           </button>
         </div>
-      </div> */}
+      </div>
     </main>
   );
 }

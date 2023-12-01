@@ -1,8 +1,13 @@
 "use server";
 
-import createSupabaseServerClient from "@/config/supabase-server";
 import { notFound, redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+
+/* supabase */
+import createSupabaseServerClient from "@/config/supabase-server";
+
+/* clerk */
+// import { ClerkProvider, auth, currentUser } from "@clerk/nextjs";
 
 export async function getTickets() {
   // await new Promise(resolve => setTimeout(resolve, 3000))
@@ -72,22 +77,33 @@ export async function addTicketFormData(formData) {
   console.log("body: ", body);
   console.log("priority: ", priority);
 
+  /* supabase */
   const supabase = await createSupabaseServerClient();
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+  // const {
+  //   data: { session },
+  // } = await supabase.auth.getSession();
+
+  /* clerk */
+  const user = await currentUser()
+  const userEmail = user.emailAddresses[0].emailAddress
 
   const { data, error } = await supabase
     .from("ninja-helpdesk")
+
+    /* supabase */
     // .insert({
-    //   ...ticket,
+    //   title,
+    //   body,
+    //   priority,
     //   user_email: session?.user.email || "test123@gmail.com",
     // })
+
+    /* clerk */
     .insert({
       title,
       body,
       priority,
-      user_email: session?.user.email || "test123@gmail.com",
+      user_email: userEmail || "test123@gmail.com",
     })
     .select();
 
