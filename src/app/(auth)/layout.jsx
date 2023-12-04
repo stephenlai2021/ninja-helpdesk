@@ -9,16 +9,16 @@ import { getServerSession } from "next-auth";
 import SessionProvider from "@/components/SessionProvider";
 
 /* clerk */
-// import { ClerkProvider, auth, currentUser } from "@clerk/nextjs";
+import { ClerkProvider, auth, currentUser } from "@clerk/nextjs";
 
 export default async function AuthLayout({ children }) {
   /* supabase */
-  // const supabase = await createSupabaseServerClient();
-  // const {
-  //   data: { session },
-  // } = await supabase.auth.getSession();
-  // console.log("auth layout session: ", session);
-  // if (session) redirect("/");
+  const supabase = await createSupabaseServerClient();
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  console.log("user session | auth layout ", session);
+  if (session) redirect("/");
 
   /* clerk */
   // const user = await currentUser();
@@ -28,9 +28,9 @@ export default async function AuthLayout({ children }) {
   /* firebase */
 
   /* next-auth */
-  const session = await getServerSession();
-  console.log("user session | auth layout: ", session);
-  if (session?.user) redirect("/");
+  // const session = await getServerSession();
+  // console.log("user session | auth layout: ", session);
+  // if (session?.user) redirect("/");
 
   return (
     <>
@@ -38,8 +38,8 @@ export default async function AuthLayout({ children }) {
         <Link href="/">
           <h1>Dojo Helpdesk</h1>
         </Link>
-        <Link href="/signup">Regiser</Link>
-        <Link href="/login">Login</Link>
+        <Link href="/signup">Sign up</Link>
+        <Link href="/login">Log in</Link>
       </nav>
       {children}
 

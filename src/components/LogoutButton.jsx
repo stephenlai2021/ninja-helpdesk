@@ -32,7 +32,7 @@ export default function LogoutButton() {
   }
 
   /* supabase */
-  // return <button onClick={handleLogoutSupabase}>Logout</button>;
+  return <button onClick={handleLogoutSupabase}>Logout</button>;
 
   /* clerk */
   // return <div><UserButton afterSignOutUrl="/"/></div>
@@ -41,5 +41,5 @@ export default function LogoutButton() {
   // return <button onClick={handleLogoutFirebase}>Logout</button>;
 
   /* next-auth */
-  return <button className="" onClick={() => signOut({ callbackUrl: "/login" })}>Logout</button>;
+  // return <button className="" onClick={() => signOut({ callbackUrl: "/login" })}>Logout</button>;
 }

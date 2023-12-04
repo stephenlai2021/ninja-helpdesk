@@ -1,4 +1,5 @@
-import { getTicket } from "@/actions/tickets/supabase";
+// import { getTicket } from "@/actions/tickets/supabase";
+import { getTicket } from "@/actions/tickets/mongodb";
 // import { getTicket } from "@/actions/tickets/firebase";
 // import { getTicket } from "@/actions/tickets/appwrite";
 // import { getTicket } from "@/actions/tickets/json-server";
@@ -12,6 +13,9 @@ import createSupabaseServerClient from "@/config/supabase-server";
 /* firebase */
 import { firebaseDb } from "@/config/firebase";
 import { doc, getDoc } from "firebase/firestore";
+
+/* mongodb */
+import Ticket from '@/models/ticket'
 
 /* next-auth */
 import { getServerSession } from "next-auth";
@@ -37,12 +41,15 @@ export async function generateMetadata({ params }) {
   // const ticket = docSnap.data()
 
   /* supabase */
-  const supabase = await createSupabaseServerClient();
-  const { data: ticket } = await supabase
-    .from("ninja-helpdesk")
-    .select()
-    .eq("id", params.id)
-    .single();
+  // const supabase = await createSupabaseServerClient();
+  // const { data: ticket } = await supabase
+  //   .from("ninja-helpdesk")
+  //   .select()
+  //   .eq("id", params.id)
+  //   .single();
+
+  /* mongodb */
+  const ticket = await Ticket.findById(params.id)
 
   return {
     title: `Dojo Helpdesk | ${ticket?.title || "Ticket not Found"}`,
@@ -51,32 +58,35 @@ export async function generateMetadata({ params }) {
 
 export default async function TicketDetailsPage({ params }) {
   const ticket = await getTicket(params.id);
-  console.log("ticket details: ", ticket);
+  console.log("ticket | ticket details: ", ticket);
 
-  /* supabase */
-  // const supabase = await createSupabaseServerClient();
-  // const {
-  //   data: { session },
-  // } = await supabase.auth.getSession();
-  // console.log('session | ticket details: ', session?.user);
+  /* supabase auth */
+  const supabase = await createSupabaseServerClient();
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  console.log('session | ticket details: ', session?.user);
 
-  /* clerk */
+  /* clerk auth */
   // const user = await currentUser()
   // console.log('user: ', user)
   // console.log('user email: ', user.emailAddresses[0].emailAddress)
   // const userEmail = user.emailAddresses[0].emailAddress
 
-  /* next-auth */
-   const session = await getServerSession();
-   console.log("session | ticket details: ", session);
+  /* next auth */
+  //  const session = await getServerSession();
+  //  console.log("session | ticket details: ", session);
 
   return (
     <main>
       <nav>
         <h2>Ticket Details</h2>
         <div className="ml-auto">
-          {/* // supabase  */}
-          {session?.user.email === ticket.user_email && <DeleteButton id={ticket.id} />}
+          {/* supabase  */}
+          {/* {session?.user.email === ticket.user_email && <DeleteButton id={ticket.id} />} */}
+
+          {/* mongodb */}
+          {session?.user.email === ticket?.user_email && <DeleteButton id={ticket._id} />}
 
           {/* clerk */}
           {/* {userEmail === ticket.user_email && <DeleteButton id={ticket.id} />} */}

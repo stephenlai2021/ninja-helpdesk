@@ -9,8 +9,11 @@ import LogoutButton from "./LogoutButton";
 /* next-auth */
 import { getServerSession } from "next-auth";
 
-export default async function Navbar({ user }) {
-  // export default async function Navbar() {
+/* supabase */
+import createSupabaseServerClient from '@/config/supabase-server'
+
+// export default async function Navbar({ user }) {
+  export default async function Navbar() {
   /* clerk */
   // const user = await currentUser()
   // console.log('user | navbar: ', user._User)
@@ -19,7 +22,12 @@ export default async function Navbar({ user }) {
   // const session = await getServerSession();
   // console.log("session | navbar: ", session);
   // const user = session?.user
-  // console.log("user | navbar: ", session?.user);
+
+  /* supabase */
+  const supabase = await createSupabaseServerClient()
+  const { data: { session } } = await supabase.auth.getSession();
+  // console.log('user session | navbar: ', session?.user)
+  const user = session?.user
 
   return (
     <nav>
@@ -37,14 +45,14 @@ export default async function Navbar({ user }) {
       </Link>
 
       {/* supabase */}
-      {/* {user && <span>{user?.email}</span>}
-      {user && <LogoutButton />} */}
+      {user && <span>{user?.email}</span>}
+      {user && <LogoutButton />}
 
       {/* clerk */}
       {/* {user && <LogoutButton />} */}
 
       {/* next-auth */}
-      <div className="flex">
+      {/* <div className="flex">
         <div className="flex items-center">
           <Image
             src={
@@ -58,9 +66,8 @@ export default async function Navbar({ user }) {
             quality={100}
           />
         </div>
-        {/* {user && <span>{user?.email}</span>} */}
         {user && <LogoutButton />}
-      </div>
+      </div> */}
     </nav>
   );
 }

@@ -5,7 +5,7 @@ import { getServerSession } from "next-auth";
 import createSupabaseServerClient from "@/config/supabase-server";
 
 /* clerk */
-// import { ClerkProvider, auth, currentUser } from "@clerk/nextjs";
+import { ClerkProvider, auth, currentUser } from "@clerk/nextjs";
 
 /* components */
 import Image from "next/image";

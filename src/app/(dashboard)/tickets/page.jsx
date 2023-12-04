@@ -1,13 +1,13 @@
-import TicketList from "@/components/TicketList";
 import { Suspense } from "react";
-import Link from 'next/link'
+import Link from "next/link";
 
 /* components */
 import Loading from "../loading";
+import TicketList from "@/components/TicketList";
 
 export const metadata = {
-	title: 'Dojo Helpdesk | Tickets',
-}
+  title: "Dojo Helpdesk | Tickets",
+};
 
 export default function Tickets() {
   return (
@@ -15,9 +15,7 @@ export default function Tickets() {
       <nav>
         <div>
           <h2>Tickets</h2>
-          <p>
-            <small>Currently open tickets.</small>
-          </p>
+          <p><small>Currently open tickets.</small></p>
         </div>
         <Link href="/tickets/create" className="ml-auto">
           <button className="btn-primary">New Ticket</button>

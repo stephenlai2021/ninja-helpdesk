@@ -1,5 +1,8 @@
 import { redirect } from "next/navigation";
 
+/* context */
+import { CountContext } from "@/context/counter";
+
 /* next-auth */
 import { getServerSession } from "next-auth";
 import SessionProvider from "@/components/SessionProvider";
@@ -11,17 +14,19 @@ import createSupabaseServerClient from "@/config/supabase-server";
 import { initAdmin } from "@/config/firebase-admin";
 
 /* clerk */
-// import { ClerkProvider, auth, currentUser } from "@clerk/nextjs";
+import { ClerkProvider, auth, currentUser } from "@clerk/nextjs";
 
 /* components */
 import Navbar from "@/components/Navbar";
 
 export default async function DashboardLayout({ children }) {
   /* supabase */
-  // const supabase = await createSupabaseServerClient()
-  // const { data: { session } } = await supabase.auth.getSession();
-  // console.log("dashboard layout session: ", session);
-  // if (!session) redirect("/login");
+  const supabase = await createSupabaseServerClient();
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  // console.log("user session | dashboard layout: ", session);
+  if (!session) redirect("/login");
 
   /* clerk */
   // const user = await currentUser()
@@ -31,27 +36,20 @@ export default async function DashboardLayout({ children }) {
   // await initAdmin()
 
   /* next-auth */
-  const session = await getServerSession();
-  console.log("user session | dashboard: ", session?.user);
-  if (!session || !session?.user) {
-    /* next-auth default signin page */
-    // redirect("/api/auth/signin");
+  // const session = await getServerSession();
+  // console.log("user session | dashboard: ", session?.user);
+  // if (!session || !session?.user) {
+  //   /* next-auth default signin page */
+  //   // redirect("/api/auth/signin");
 
-    /* customize next-auth login page */
-    redirect("/login");
-  }
+  //   /* customize next-auth login page */
+  //   redirect("/login");
+  // }
 
   return (
     <>
-      {/* next-auth && supabase */}
-      {/* <Navbar /> */}
-      {/* pass user session to navbar on server side is faster than fetch user session in navbar */}
-      <Navbar user={session?.user} />
+      <Navbar />
       {children}
-
-      {/* clerk */}
-      {/* <Navbar />
-      {children} */}
     </>
   );
 }

@@ -1,4 +1,5 @@
-import { getTickets } from "@/actions/tickets/supabase";
+// import { getTickets } from "@/actions/tickets/supabase";
+import { getTickets } from "@/actions/tickets/mongodb";
 // import { getTickets } from "@/actions/tickets/firebase";
 // import { getTickets } from "@/actions/tickets/appwrite";
 // import { getTickets } from "@/actions/tickets/json-server";
@@ -8,7 +9,7 @@ import TicketCard from "./TicketCard";
 
 export default async function TicketList() {
   const tickets = await getTickets();
-  console.log('ticket list: ', tickets)
+  console.log('tickets | ticket list ', tickets)
 
   return (
     <>
@@ -19,7 +20,12 @@ export default async function TicketList() {
         // </div>        
 
         /* supabase && firebase && json-server */
-        <div key={ticket.id} className="card my-5"> 
+        // <div key={ticket.id} className="card my-5"> 
+        //   <TicketCard ticket={ticket} />
+        // </div>
+
+        /* mongodb */
+        <div key={ticket._id} className="card my-5"> 
           <TicketCard ticket={ticket} />
         </div>
       ))}

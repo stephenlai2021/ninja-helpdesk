@@ -1,7 +1,8 @@
 "use client"
 
 import { useTransition } from 'react'
-import { deleteTicket } from '@/actions/tickets/supabase'
+// import { deleteTicket } from '@/actions/tickets/supabase'
+import { deleteTicket } from '@/actions/tickets/mongodb'
 // import { deleteTicket } from '@/actions/tickets/firebase'
 // import { deleteTicket } from '@/actions/tickets/appwrite'
 
