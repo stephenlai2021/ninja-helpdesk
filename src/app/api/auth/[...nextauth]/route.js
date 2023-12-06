@@ -58,36 +58,33 @@ export const authOptions = {
       clientSecret: process.env.GITHUB_SECRET,
     }),
   ],
-  // session: {
-  //   strategy: "jwt",
-  // },
   pages: {
     signIn: "/(auth)/login"
   },
-  callbacks: {
-    async signIn({ user, account }) {
-      if (account?.provider === "credentials") {
-        return true;
-      }
-      if (account?.provider === "github") {
-        try {
-          const existingUser = await User.findOne({ email: user.email });
-          if (!existingUser) {
-            const newUser = new User({
-              email: user.email,
-            });
+  // callbacks: {
+  //   async signIn({ user, account }) {
+  //     if (account?.provider === "credentials") {
+  //       return true;
+  //     }
+  //     if (account?.provider === "github") {
+  //       try {
+  //         const existingUser = await User.findOne({ email: user.email });
+  //         if (!existingUser) {
+  //           const newUser = new User({
+  //             email: user.email,
+  //           });
 
-            await newUser.save();
-            return true;
-          }
-          return true;
-        } catch (err) {
-          console.log("Error saving user", err);
-          return false;
-        }
-      }
-    },
-  },
+  //           await newUser.save();
+  //           return true;
+  //         }
+  //         return true;
+  //       } catch (err) {
+  //         console.log("Error saving user", err);
+  //         return false;
+  //       }
+  //     }
+  //   },
+  // },
 };
 
 export const handler = NextAuth(authOptions);

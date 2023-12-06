@@ -58,7 +58,7 @@ import createSupabaseServerClient from '@/config/supabase-server'
               user?.image ||
               "https://cdn-icons-png.flaticon.com/512/6596/6596121.png"
             }
-            className=""
+            className="mr-1"
             alt="user logo"
             width={30}
             height={30}
