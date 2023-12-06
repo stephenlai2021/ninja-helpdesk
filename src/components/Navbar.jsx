@@ -10,10 +10,10 @@ import LogoutButton from "./LogoutButton";
 import { getServerSession } from "next-auth";
 
 /* supabase */
-import createSupabaseServerClient from '@/config/supabase-server'
+import createSupabaseServerClient from "@/config/supabase-server";
 
 // export default async function Navbar({ user }) {
-  export default async function Navbar() {
+export default async function Navbar() {
   /* clerk */
   // const user = await currentUser()
   // console.log('user | navbar: ', user._User)
@@ -21,7 +21,7 @@ import createSupabaseServerClient from '@/config/supabase-server'
   /* nextauth */
   const session = await getServerSession();
   console.log("session | navbar: ", session);
-  const user = session?.user
+  const user = session?.user;
 
   /* supabase */
   // const supabase = await createSupabaseServerClient()
@@ -38,8 +38,11 @@ import createSupabaseServerClient from '@/config/supabase-server'
         placeholder="blur"
         quality={100}
       />
-      <Link href="/"><h1>Dojo Helpdesk</h1></Link>
-      <Link href="/tickets" className="mr-auto">
+      <Link href="/">
+        <h1 className="max-[370px]:hidden">Dojo Helpdesk</h1>
+        {/* <h1 className="">Dojo Helpdesk</h1> */}
+      </Link>
+      <Link href="/tickets" className="mr-auto max-[450px]:hidden">
         Tickets
       </Link>
 
@@ -51,7 +54,7 @@ import createSupabaseServerClient from '@/config/supabase-server'
       {/* {user && <LogoutButton />} */}
 
       {/* nextauth */}
-      <div className="flex">
+      <div className="flex max-[450px]:ml-auto">
         <div className="flex items-center">
           <Image
             src={
@@ -65,7 +68,11 @@ import createSupabaseServerClient from '@/config/supabase-server'
             quality={100}
           />
         </div>
-        {user && <span className="flex items-center">{user?.email}</span>}
+        {user && (
+          <span className="flex items-center max-[650px]:hidden">
+            {user?.email}
+          </span>
+        )}
         {user && <LogoutButton />}
       </div>
     </nav>
