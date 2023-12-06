@@ -3,6 +3,9 @@
 /* mongodb */
 import Ticket from "@/models/ticket";
 
+/* nextauth */
+import { getServerSession } from "next-auth";
+
 /* next */
 import { revalidatePath } from "next/cache";
 import { redirect, notFound } from "next/navigation";
@@ -39,11 +42,14 @@ export async function addTicketFormData(formData) {
   console.log("body: ", body);
   console.log("priority: ", priority);
 
+  const session = await getServerSession()
+
   await Ticket.create({
     title,
     body,
     priority,
-    user_email: "stephenlaitest@gmail.com",
+    // user_email: "stephenlaitest@gmail.com",
+    user_email: session?.user?.email,
   });
   console.log("ticket created successfully!");
   revalidatePath("/tickets");

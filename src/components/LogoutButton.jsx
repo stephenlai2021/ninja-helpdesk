@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 
 /* supabase */
-import createSupabaseClient from "@/config/supabase-client";
+// import createSupabaseClient from "@/config/supabase-client";
 
 /* clerk */
 // import { UserButton } from "@clerk/nextjs";
@@ -12,7 +12,7 @@ import createSupabaseClient from "@/config/supabase-client";
 import { firebaseAuth } from "@/config/firebase";
 // import { signOut } from "firebase/auth";
 
-/* next-auth */
+/* nextauth */
 import { signIn, signOut, useSession } from "next-auth/react";
 
 export default function LogoutButton() {
@@ -32,7 +32,7 @@ export default function LogoutButton() {
   }
 
   /* supabase */
-  return <button onClick={handleLogoutSupabase}>Logout</button>;
+  // return <button onClick={handleLogoutSupabase}>Logout</button>;
 
   /* clerk */
   // return <div><UserButton afterSignOutUrl="/"/></div>
@@ -40,6 +40,6 @@ export default function LogoutButton() {
   /* firebase */
   // return <button onClick={handleLogoutFirebase}>Logout</button>;
 
-  /* next-auth */
-  // return <button className="" onClick={() => signOut({ callbackUrl: "/login" })}>Logout</button>;
+  /* nextauth */
+  return <button className="" onClick={() => signOut({ callbackUrl: "/login" })}>Logout</button>;
 }

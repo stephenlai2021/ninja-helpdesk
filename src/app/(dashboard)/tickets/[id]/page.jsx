@@ -61,11 +61,11 @@ export default async function TicketDetailsPage({ params }) {
   console.log("ticket | ticket details: ", ticket);
 
   /* supabase auth */
-  const supabase = await createSupabaseServerClient();
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-  console.log('session | ticket details: ', session?.user);
+  // const supabase = await createSupabaseServerClient();
+  // const {
+  //   data: { session },
+  // } = await supabase.auth.getSession();
+  // console.log('session | ticket details: ', session?.user);
 
   /* clerk auth */
   // const user = await currentUser()
@@ -73,9 +73,9 @@ export default async function TicketDetailsPage({ params }) {
   // console.log('user email: ', user.emailAddresses[0].emailAddress)
   // const userEmail = user.emailAddresses[0].emailAddress
 
-  /* next auth */
-  //  const session = await getServerSession();
-  //  console.log("session | ticket details: ", session);
+  /* nextauth */
+   const session = await getServerSession();
+   console.log("session | ticket details: ", session);
 
   return (
     <main>
@@ -85,7 +85,7 @@ export default async function TicketDetailsPage({ params }) {
           {/* supabase  */}
           {/* {session?.user.email === ticket.user_email && <DeleteButton id={ticket.id} />} */}
 
-          {/* mongodb */}
+          {/* nextauth + mongodb */}
           {session?.user.email === ticket?.user_email && <DeleteButton id={ticket._id} />}
 
           {/* clerk */}

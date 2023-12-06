@@ -1,4 +1,4 @@
-/* next-auth */
+/* nextauth */
 import { getServerSession } from "next-auth";
 
 /* supabase */
@@ -11,9 +11,9 @@ import { ClerkProvider, auth, currentUser } from "@clerk/nextjs";
 import Image from "next/image";
 
 export default async function TicketDetailsCard({ ticket }) {
-  /* next-auth */
-  // const session = await getServerSession();
-  // console.log("user | next-auth: ", session.user);
+  /* nextauth */
+  const session = await getServerSession();
+  console.log("user | ticket details card: ", session.user);
 
   /* supabase */
   // const supabase = await createSupabaseServerClient()
@@ -28,9 +28,8 @@ export default async function TicketDetailsCard({ ticket }) {
           <small>Created by {ticket.user_email}</small>
         </div>
         <div className="ml-auto">
-
-          {/* next-auth */}
-          {/* <Image
+          {/* nextauth */}
+          <Image
             src={
               session?.user?.image ||
               "https://cdn-icons-png.flaticon.com/512/6596/6596121.png"
@@ -40,17 +39,17 @@ export default async function TicketDetailsCard({ ticket }) {
             height={35}
             alt="user image"
             quality={100}
-          /> */}
+          />
 
           {/* supabase */}
-          <Image
+          {/* <Image
             src="https://cdn-icons-png.flaticon.com/512/6596/6596121.png"
             className="rounded-full border border-sm"
             width={35}
             height={35}
             alt="user image"
             quality={100}
-          />
+          /> */}
         </div>
       </div>
       <p>{ticket.body}</p>
@@ -59,7 +58,10 @@ export default async function TicketDetailsCard({ ticket }) {
       {/* <p>{ticket.created_at.toDate().toString()}</p> */}
 
       {/* supabase */}
-      <p>{ticket.created_at}</p>
+      {/* <p>{ticket.created_at}</p> */}
+
+      {/* nextauth */}
+      {/* <p>{ticket.createdAt}</p> */}
 
       <div className={`pill ${ticket.priority}`}>
         {ticket.priority} priority

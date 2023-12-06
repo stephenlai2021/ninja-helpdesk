@@ -20,31 +20,30 @@ import { ClerkProvider, auth, currentUser } from "@clerk/nextjs";
 import Navbar from "@/components/Navbar";
 
 export default async function DashboardLayout({ children }) {
-  /* supabase */
-  const supabase = await createSupabaseServerClient();
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-  // console.log("user session | dashboard layout: ", session);
-  if (!session) redirect("/login");
+  /* supabase auth */
+  // const supabase = await createSupabaseServerClient();
+  // const {
+  //   data: { session },
+  // } = await supabase.auth.getSession();
+  // if (!session) redirect("/login");
 
-  /* clerk */
+  /* clerk auth */
   // const user = await currentUser()
   // if (!user) redirect("/sign-in");
 
-  /* firebase */
+  /* firebase auth */
   // await initAdmin()
 
-  /* next-auth */
-  // const session = await getServerSession();
-  // console.log("user session | dashboard: ", session?.user);
-  // if (!session || !session?.user) {
-  //   /* next-auth default signin page */
-  //   // redirect("/api/auth/signin");
+  /* nextauth */
+  const session = await getServerSession();
+  console.log("user session | dashboard: ", session?.user);
+  if (!session || !session?.user) {
+    /* next-auth default signin page */
+    // redirect("/api/auth/signin");
 
-  //   /* customize next-auth login page */
-  //   redirect("/login");
-  // }
+    /* customize next-auth login page */
+    redirect("/login");
+  }
 
   return (
     <>

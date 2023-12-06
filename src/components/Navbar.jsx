@@ -18,16 +18,15 @@ import createSupabaseServerClient from '@/config/supabase-server'
   // const user = await currentUser()
   // console.log('user | navbar: ', user._User)
 
-  /* next-auth */
-  // const session = await getServerSession();
-  // console.log("session | navbar: ", session);
-  // const user = session?.user
+  /* nextauth */
+  const session = await getServerSession();
+  console.log("session | navbar: ", session);
+  const user = session?.user
 
   /* supabase */
-  const supabase = await createSupabaseServerClient()
-  const { data: { session } } = await supabase.auth.getSession();
-  // console.log('user session | navbar: ', session?.user)
-  const user = session?.user
+  // const supabase = await createSupabaseServerClient()
+  // const { data: { session } } = await supabase.auth.getSession();
+  // const user = session?.user
 
   return (
     <nav>
@@ -45,14 +44,14 @@ import createSupabaseServerClient from '@/config/supabase-server'
       </Link>
 
       {/* supabase */}
-      {user && <span>{user?.email}</span>}
-      {user && <LogoutButton />}
+      {/* {user && <span>{user?.email}</span>}
+      {user && <LogoutButton />} */}
 
       {/* clerk */}
       {/* {user && <LogoutButton />} */}
 
-      {/* next-auth */}
-      {/* <div className="flex">
+      {/* nextauth */}
+      <div className="flex">
         <div className="flex items-center">
           <Image
             src={
@@ -66,8 +65,9 @@ import createSupabaseServerClient from '@/config/supabase-server'
             quality={100}
           />
         </div>
+        {user && <span className="flex items-center">{user?.email}</span>}
         {user && <LogoutButton />}
-      </div> */}
+      </div>
     </nav>
   );
 }

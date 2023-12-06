@@ -29,7 +29,7 @@ import { firebaseAuth } from "@/config/firebase";
 
 /* components */
 import AuthForm from "@/components/AuthForm";
-import LoginForm from "@/components/LoginForm";
+import NextAuthLoginForm from "@/components/NextAuthLoginForm";
 
 export default function LoginPage() {
   const [error, setError] = useState("");
@@ -112,8 +112,9 @@ export default function LoginPage() {
         <button onClick={dec}>one down</button>
       </div> */}
 
-      <AuthForm handleSubmit={handleSubmitSupabase} auth="Log in" />
-      {error && <div className="error">{error}</div>}
+      {/* supabase */}
+      {/* <AuthForm handleSubmit={handleSubmitSupabase} auth="Log in" />
+      {error && <div className="error">{error}</div>} */}
 
       {/* nextauth + mongodb */}
       {/* <LoginForm /> */}
@@ -143,7 +144,7 @@ export default function LoginPage() {
       {/* <AuthForm handleSubmit={handleSubmitFirebase} /> */}
       {/* {error && <div className="error">{error}</div>} */}
 
-      {/* next-auth */}
+      {/* nextauth + github/google oath */}
       {/* <div className="my-[32px] bg-[#0d1116] py-[20px] px-[32px] flex justify-center max-w-[250px] mx-auto">
         <div className="min-w-[230px] borde flex flex-col">
           <button
@@ -174,6 +175,10 @@ export default function LoginPage() {
           </button>
         </div>
       </div> */}
+
+      {/* nextauth email/password + github oath */}
+      <NextAuthLoginForm />
+
     </main>
   );
 }

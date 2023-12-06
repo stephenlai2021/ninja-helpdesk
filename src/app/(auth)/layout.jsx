@@ -12,25 +12,25 @@ import SessionProvider from "@/components/SessionProvider";
 import { ClerkProvider, auth, currentUser } from "@clerk/nextjs";
 
 export default async function AuthLayout({ children }) {
-  /* supabase */
-  const supabase = await createSupabaseServerClient();
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-  console.log("user session | auth layout ", session);
-  if (session) redirect("/");
+  /* supabase auth */
+  // const supabase = await createSupabaseServerClient();
+  // const {
+  //   data: { session },
+  // } = await supabase.auth.getSession();
+  // console.log("user session | auth layout ", session);
+  // if (session) redirect("/");
 
-  /* clerk */
+  /* clerk auth*/
   // const user = await currentUser();
   // console.log("user | clerk: ", user);
   // if (user) redirect("/");
 
   /* firebase */
 
-  /* next-auth */
-  // const session = await getServerSession();
-  // console.log("user session | auth layout: ", session);
-  // if (session?.user) redirect("/");
+  /* nextauth */
+  const session = await getServerSession();
+  console.log("user session | auth layout: ", session);
+  if (session?.user) redirect("/");
 
   return (
     <>
