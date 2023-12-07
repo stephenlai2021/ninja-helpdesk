@@ -3,12 +3,13 @@ import { Rubik } from "next/font/google";
 
 /* context */
 import { CounterContextProvider } from "@/context/counter";
+import DarkModeProvider from "@/context/darkmode";
 
 /* clerk */
 import { ClerkProvider } from "@clerk/nextjs";
 
 /* nextauth */
-import SessionProvider from "@/components/SessionProvider"; 
+import SessionProvider from "@/components/SessionProvider";
 import { getServerSession } from "next-auth";
 
 const rubik = Rubik({ subsets: ["latin"] });
@@ -25,11 +26,13 @@ export default async function RootLayout({ children }) {
     <html lang="en">
       {/* suppressHydrationWarning={true} is used to suppress Extra attributes from the server: cz-shortcut-listen */}
       <body className={rubik.className} suppressHydrationWarning={true}>
-        {/* <SessionProvider session={session}> */}
+        <DarkModeProvider>
+          {/* <SessionProvider session={session}> */}
           {/* <ClerkProvider> */}
-            <CounterContextProvider>{children}</CounterContextProvider>
+          <CounterContextProvider>{children}</CounterContextProvider>
           {/* </ClerkProvider> */}
-        {/* </SessionProvider> */}
+          {/* </SessionProvider> */}
+        </DarkModeProvider>
       </body>
     </html>
   );

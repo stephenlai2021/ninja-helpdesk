@@ -11,6 +11,9 @@ import SessionProvider from "@/components/SessionProvider";
 /* clerk */
 import { ClerkProvider, auth, currentUser } from "@clerk/nextjs";
 
+/* components */
+import DarkModeButton from "@/components/DarkmodeButton";
+
 export default async function AuthLayout({ children }) {
   /* supabase auth */
   // const supabase = await createSupabaseServerClient();
@@ -40,6 +43,9 @@ export default async function AuthLayout({ children }) {
         </Link>
         <Link href="/signup">Sign up</Link>
         <Link href="/login">Log in</Link>
+        <div className="ml-auto">
+          <DarkModeButton />
+        </div>
       </nav>
       {children}
 
