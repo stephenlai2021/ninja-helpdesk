@@ -12,6 +12,9 @@ import { getServerSession } from "next-auth";
 /* supabase */
 import createSupabaseServerClient from "@/config/supabase-server";
 
+/* components */
+import DarkModeButton from "./DarkmodeButton";
+
 // export default async function Navbar({ user }) {
 export default async function Navbar() {
   /* clerk */
@@ -56,6 +59,7 @@ export default async function Navbar() {
       {/* nextauth */}
       <div className="flex max-[450px]:ml-auto">
         <div className="flex items-center">
+          <DarkModeButton />
           <Image
             src={
               user?.image ||
@@ -63,8 +67,8 @@ export default async function Navbar() {
             }
             className="mr-1"
             alt="user logo"
-            width={30}
-            height={30}
+            width={20}
+            height={20}
             quality={100}
           />
         </div>

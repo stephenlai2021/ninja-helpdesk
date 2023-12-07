@@ -4,10 +4,8 @@
 
 /* base styles */
 body {
-  /* background: #ebf0fa;
-  @apply text-gray-500 m-8; */
-  /* background: black;
-  color: rgb(147, 151, 155); */
+  @apply dark:bg-gray-900 dark:text-gray-300 bg-gray-300 text-gray-900;
+  
 }
 h1,
 h2 {
@@ -100,15 +98,17 @@ form button {
 
 /* card styles */
 .card {
-  @apply bg-gray-700
+  @apply 
     shadow-sm 
     rounded-md 
     py-3 px-4 my-4 
     relative 
+    border
+    border-2
     overflow-hidden;
 }
 .card h3 {
-  @apply font-bold text-gray-300 text-sm 
+  @apply font-bold text-sm 
     mb-0;
 }
 .card p {

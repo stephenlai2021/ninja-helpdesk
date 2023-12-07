@@ -35,8 +35,8 @@ export default async function TicketDetailsCard({ ticket }) {
               "https://cdn-icons-png.flaticon.com/512/6596/6596121.png"
             }
             className="rounded-full border border-sm"
-            width={35}
-            height={35}
+            width={20}
+            height={20}
             alt="user image"
             quality={100}
           />
