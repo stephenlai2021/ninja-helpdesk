@@ -4,7 +4,7 @@ import Logo from "./dojo-logo.png";
 import LogoutButton from "./LogoutButton";
 
 /* clerk */
-// import { ClerkProvider, auth, currentUser } from "@clerk/nextjs";
+import { ClerkProvider, auth, currentUser } from "@clerk/nextjs";
 
 /* next-auth */
 import { getServerSession } from "next-auth";

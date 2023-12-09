@@ -178,7 +178,6 @@ export default function LoginPage() {
 
       {/* nextauth email/password + github oath */}
       <NextAuthLoginForm />
-
     </main>
   );
 }

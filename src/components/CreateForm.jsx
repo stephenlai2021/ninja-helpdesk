@@ -39,7 +39,6 @@ export default function CreateForm() {
           </select>
         </label>
         <SubmitButton />
-        {/* <button type="submit">Submit</button> */}
       </form>
     </>
   );

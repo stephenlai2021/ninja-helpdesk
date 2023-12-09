@@ -1,17 +1,10 @@
 import { redirect } from "next/navigation";
 
-/* context */
-import { CountContext } from "@/context/counter";
-
 /* next-auth */
 import { getServerSession } from "next-auth";
-import SessionProvider from "@/components/SessionProvider";
 
 /* supabase */
 import createSupabaseServerClient from "@/config/supabase-server";
-
-/* firebase */
-import { initAdmin } from "@/config/firebase-admin";
 
 /* clerk */
 import { ClerkProvider, auth, currentUser } from "@clerk/nextjs";
@@ -31,19 +24,14 @@ export default async function DashboardLayout({ children }) {
   // const user = await currentUser()
   // if (!user) redirect("/sign-in");
 
-  /* firebase auth */
-  // await initAdmin()
-
-  /* nextauth */
+  /* 
+    next-auth 
+    default signin page 
+    redirect("/api/auth/signin");
+  */
   const session = await getServerSession();
   console.log("user session | dashboard: ", session?.user);
-  if (!session || !session?.user) {
-    /* next-auth default signin page */
-    // redirect("/api/auth/signin");
-
-    /* customize next-auth login page */
-    redirect("/login");
-  }
+  if (!session || !session?.user) redirect("/login")
 
   return (
     <>

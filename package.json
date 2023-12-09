@@ -1,5 +1,5 @@
 {
-  "name": "nextjs14",
+  "name": "ninja-helpdesk",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -33,6 +33,7 @@
     "zustand": "^4.4.7"
   },
   "devDependencies": {
+    "@types/react": "18.2.42",
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.0.2",

@@ -29,7 +29,9 @@ export default async function RootLayout({ children }) {
         <DarkModeProvider>
           {/* <SessionProvider session={session}> */}
           {/* <ClerkProvider> */}
-          <CounterContextProvider>{children}</CounterContextProvider>
+          <CounterContextProvider>
+            {children}
+          </CounterContextProvider>
           {/* </ClerkProvider> */}
           {/* </SessionProvider> */}
         </DarkModeProvider>
